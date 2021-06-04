@@ -17,10 +17,21 @@ class PUZZLEPLATFORMS_API AMovingPlatform : public AStaticMeshActor
 public:
 	AMovingPlatform();
 
+	virtual void BeginPlay() override;
+
 	virtual void Tick(float DeltaTime) override;
 
 	// MovementSpeed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Actor Modifier")
 	float Speed;
+
+	// Target Location
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Actor Modifier", Meta=(MakeEditWidget = true))
+	FVector TargetLocation;
+
+private:
+	FVector GlobalStartLocation;
+
+	FVector GlobalTargetLocation;
 
 };
