@@ -19,4 +19,8 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	// MovementSpeed
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Actor Modifier")
+	float Speed;
+
 };
