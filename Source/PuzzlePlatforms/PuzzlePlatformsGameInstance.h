@@ -19,6 +19,9 @@ public:
 	virtual void Init();
 
 	// Console Commands
+	UFUNCTION(Exec, BlueprintCallable, Category="Console Commands")
+	void LoadMenu();
+
 	UFUNCTION(Exec, Category="Console Commands")
 	void Host();
 
