@@ -29,9 +29,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Actor Modifier", Meta=(MakeEditWidget = true))
 	FVector TargetLocation;
 
+	void AddActiveTrigger();
+	void RemoveActiveTrigger();
+
 private:
 	FVector GlobalStartLocation;
 
 	FVector GlobalTargetLocation;
+
+
+	// Comment
+	UPROPERTY(EditAnywhere)
+	int ActiveTriggers;
 
 };
