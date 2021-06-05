@@ -7,6 +7,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "PlatformTrigger.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Widget.h"
 
 
 
@@ -35,6 +36,16 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 	if(!ensure(MenuClass!=nullptr)) return;
 	UUserWidget* Menu = CreateWidget<UUserWidget>(this,MenuClass);
 	Menu->AddToViewport();
+
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if(!ensure(PlayerController!=nullptr)) return;
+
+	FInputModeUIOnly InputModeData;
+	InputModeData.SetWidgetToFocus(Menu->TakeWidget());
+	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+
+	PlayerController->SetInputMode(InputModeData);
+	PlayerController->bShowMouseCursor = true;
 }
 
 void UPuzzlePlatformsGameInstance::Host()
