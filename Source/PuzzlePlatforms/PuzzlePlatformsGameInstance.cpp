@@ -38,4 +38,9 @@ void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 
 	Engine->AddOnScreenDebugMessage(0,5.f, FColor::Green, FString::Printf(TEXT("Joining %s!"), *Address));
 	UE_LOG(LogTemp, Error, TEXT("HOSTING"));
+
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if(!ensure(PlayerController!=nullptr)) return;
+
+	PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute);
 }
