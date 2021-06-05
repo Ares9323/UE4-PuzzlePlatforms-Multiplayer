@@ -4,17 +4,30 @@
 #include "PuzzlePlatformsGameInstance.h"
 #include "EngineGlobals.h"
 #include "Engine.h"
+#include "UObject/ConstructorHelpers.h"
+#include "PlatformTrigger.h"
+#include "Blueprint/UserWidget.h"
 
 
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("GameInstance Constructor"));
+	UE_LOG(LogTemp, Warning, TEXT("GameInstance Constructor"));
+	ConstructorHelpers::FClassFinder<APlatformTrigger> PlatformTriggerBPClass(TEXT("/Game/_Main/BP_PlatformTrigger"));
+	if(!ensure(PlatformTriggerBPClass.Class!=nullptr)) return;
+	UE_LOG(LogTemp, Warning, TEXT("Found Class %s"), *PlatformTriggerBPClass.Class->GetName());
+
+	ConstructorHelpers::FClassFinder<UUserWidget> MenuWBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
+	if(!ensure(MenuWBPClass.Class!=nullptr)) return;
+	MenuClass = MenuWBPClass.Class;
+	//UE_LOG(LogTemp, Warning, TEXT("Found Class %s"), *MenuClass->GetName());
 }
+
 
 void UPuzzlePlatformsGameInstance::Init()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("GameInstance Init()"));
+	UE_LOG(LogTemp, Warning, TEXT("GameInstance Init()"));
+	UE_LOG(LogTemp, Warning, TEXT("Found Class %s"), *MenuClass->GetName());
 }
 
 void UPuzzlePlatformsGameInstance::Host()
