@@ -7,42 +7,6 @@
 #include "Components/EditableTextBox.h"
 
 
-void UMainMenu::SetMenuInterface(IMenuInterface* CurrentMenuInterface)
-{
-    this->MenuInterface = CurrentMenuInterface;
-}
-
-void UMainMenu::Setup()
-{
-    this->AddToViewport();
-
-    UWorld* World = GetWorld();
-    if(!ensure(World!=nullptr)) return;
-	APlayerController* PlayerController = World->GetFirstPlayerController();
-	if(!ensure(PlayerController!=nullptr)) return;
-
-	FInputModeUIOnly InputModeData;
-	InputModeData.SetWidgetToFocus(this->TakeWidget());
-	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-
-	PlayerController->SetInputMode(InputModeData);
-	PlayerController->bShowMouseCursor = true;
-}
-
-void UMainMenu::Teardown() // No Longer Used
-{
-    this->RemoveFromViewport();
-
-    UWorld* World = GetWorld();
-    if(!ensure(World!=nullptr)) return;
-	APlayerController* PlayerController = World->GetFirstPlayerController();
-	if(!ensure(PlayerController!=nullptr)) return;
-
-	FInputModeGameOnly InputModeData;
-
-	PlayerController->SetInputMode(InputModeData);
-	PlayerController->bShowMouseCursor = false;
-}
 
 bool UMainMenu::Initialize()
 {

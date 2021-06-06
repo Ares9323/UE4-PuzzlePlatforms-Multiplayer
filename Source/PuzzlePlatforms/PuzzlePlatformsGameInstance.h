@@ -23,14 +23,22 @@ public:
 	UFUNCTION(Exec, BlueprintCallable, Category="Console Commands")
 	void LoadMenu();
 
-	UFUNCTION(Exec, Category="Console Commands")
-	void Host();
+	UFUNCTION(Exec, BlueprintCallable, Category="Console Commands")
+	void LoadInGameMenu();
 
 	UFUNCTION(Exec, Category="Console Commands")
-	void Join(const FString& Address);
+	void Host() override;
+
+	UFUNCTION(Exec, Category="Console Commands")
+	void Join(const FString& Address) override;
+
+	UFUNCTION(Exec, Category="Console Commands")
+	virtual void LoadMainMenu() override;
+
 
 private:
 	TSubclassOf<class UUserWidget> MenuClass;
+	TSubclassOf<class UUserWidget> InGameMenuClass;
 
 	class UMainMenu* Menu;
 
