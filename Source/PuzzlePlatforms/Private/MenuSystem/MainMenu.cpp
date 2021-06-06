@@ -6,24 +6,6 @@
 #include "Components/WidgetSwitcher.h"
 #include "Components/EditableTextBox.h"
 
-bool UMainMenu::Initialize()
-{
-    // Return false if parent function failed
-    bool Success = Super::Initialize();
-    if(!Success) return false;
-
-    // Host OnClick event
-    if(!ensure(Host!=nullptr)) return false;
-    Host->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
-
-    // Host OnClick event
-    if(!ensure(Join!=nullptr)) return false;
-    Join->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
-
-    return true;
-
-
-}
 
 void UMainMenu::SetMenuInterface(IMenuInterface* CurrentMenuInterface)
 {
@@ -60,6 +42,24 @@ void UMainMenu::Teardown() // No Longer Used
 
 	PlayerController->SetInputMode(InputModeData);
 	PlayerController->bShowMouseCursor = false;
+}
+
+bool UMainMenu::Initialize()
+{
+    // Return false if parent function failed
+    bool Success = Super::Initialize();
+    if(!Success) return false;
+
+    // Host OnClick event
+    if(!ensure(Host!=nullptr)) return false;
+    Host->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+
+    // Host OnClick event
+    if(!ensure(Join!=nullptr)) return false;
+    Join->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
+
+    return true;
+
 }
 
 void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
