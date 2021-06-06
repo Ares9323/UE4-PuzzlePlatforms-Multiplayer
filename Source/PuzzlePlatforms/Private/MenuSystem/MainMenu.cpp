@@ -51,12 +51,16 @@ bool UMainMenu::Initialize()
     if(!Success) return false;
 
     // Host OnClick event
-    if(!ensure(Host!=nullptr)) return false;
-    Host->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+    if(!ensure(HostButton!=nullptr)) return false;
+    HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
 
-    // Host OnClick event
-    if(!ensure(Join!=nullptr)) return false;
-    Join->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
+    // Open Join Menu
+    if(!ensure(JoinButton!=nullptr)) return false;
+    JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
+
+    // Return to Main Menu
+    if(!ensure(CancelButton!=nullptr)) return false;
+    CancelButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
     return true;
 
@@ -86,6 +90,24 @@ void UMainMenu::HostServer()
     {
         MenuInterface->Host();
     }
+}
+
+void UMainMenu::OpenJoinMenu()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Opening join menu!"));
+    if(!ensure(MenuSwitcher!=nullptr)) return;
+    if(!ensure(JoinMenu!=nullptr)) return;
+
+    MenuSwitcher->SetActiveWidget(JoinMenu);
+}
+
+void UMainMenu::OpenMainMenu()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Back to main menu!"));
+    if(!ensure(MenuSwitcher!=nullptr)) return;
+    if(!ensure(MainMenu!=nullptr)) return;
+
+    MenuSwitcher->SetActiveWidget(MainMenu);
 }
 
 void UMainMenu::JoinServer()
