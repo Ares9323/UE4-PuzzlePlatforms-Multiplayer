@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include <CoreMinimal.h>
-#include <Blueprint/UserWidget.h>
-#include "PuzzlePlatforms/MenuSystem/MenuInterface.h"
+#include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
+#include "MenuSystem/MenuInterface.h"
 #include "MainMenu.generated.h"
 
 /**
@@ -18,10 +18,9 @@ class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
 public:
 	void SetMenuInterface(IMenuInterface* MenuInterface);
 
-	void Setup();
-
 protected:
 	virtual bool Initialize();
+
 
 private:
 	UPROPERTY(meta = (BindWidget))

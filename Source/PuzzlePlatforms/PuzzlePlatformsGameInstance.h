@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include <CoreMinimal.h>
-#include <Engine/GameInstance.h>
-#include "PuzzlePlatforms/MenuSystem/MenuInterface.h"
+#include "CoreMinimal.h"
+#include "Engine/GameInstance.h"
+#include "MenuSystem/MenuInterface.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
 
 /**

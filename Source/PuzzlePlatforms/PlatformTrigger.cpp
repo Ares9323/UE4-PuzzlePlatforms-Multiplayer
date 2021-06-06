@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PuzzlePlatforms/PlatformTrigger.h"
-#include <Components/BoxComponent.h>
-#include "PuzzlePlatforms/MovingPlatform.h"
+#include "PlatformTrigger.h"
+#include "Components/BoxComponent.h"
+#include "MovingPlatform.h"
 
 // Sets default values
 APlatformTrigger::APlatformTrigger()

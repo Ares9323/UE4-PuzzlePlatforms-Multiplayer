@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PuzzlePlatforms/MenuSystem/MainMenu.h"
-#include <Components/Button.h>
-#include <Components/WidgetSwitcher.h>
-#include <Components/EditableTextBox.h>
+#include "MenuSystem/MainMenu.h"
+#include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
+#include "Components/EditableTextBox.h"
 
 bool UMainMenu::Initialize()
 {
