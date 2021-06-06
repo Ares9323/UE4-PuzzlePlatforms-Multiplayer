@@ -42,6 +42,22 @@ void UMainMenu::Setup()
 	PlayerController->bShowMouseCursor = true;
 }
 
+void UMainMenu::Teardown()
+{
+    this->RemoveFromViewport();
+
+    UWorld* World = GetWorld();
+    if(!ensure(World!=nullptr)) return;
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if(!ensure(PlayerController!=nullptr)) return;
+
+	FInputModeGameOnly InputModeData;
+
+	PlayerController->SetInputMode(InputModeData);
+	PlayerController->bShowMouseCursor = false;
+}
+
+
 void UMainMenu::SetMenuInterface(IMenuInterface* CurrentMenuInterface)
 {
     this->MenuInterface = CurrentMenuInterface;
