@@ -25,6 +25,11 @@ bool UMainMenu::Initialize()
 
 }
 
+void UMainMenu::SetMenuInterface(IMenuInterface* CurrentMenuInterface)
+{
+    this->MenuInterface = CurrentMenuInterface;
+}
+
 void UMainMenu::Setup()
 {
     this->AddToViewport();
@@ -42,7 +47,7 @@ void UMainMenu::Setup()
 	PlayerController->bShowMouseCursor = true;
 }
 
-void UMainMenu::Teardown()
+void UMainMenu::Teardown() // No Longer Used
 {
     this->RemoveFromViewport();
 
@@ -57,10 +62,21 @@ void UMainMenu::Teardown()
 	PlayerController->bShowMouseCursor = false;
 }
 
-
-void UMainMenu::SetMenuInterface(IMenuInterface* CurrentMenuInterface)
+void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 {
-    this->MenuInterface = CurrentMenuInterface;
+	Super::OnLevelRemovedFromWorld(InLevel,InWorld);
+
+    this->RemoveFromViewport();
+
+    UWorld* World = GetWorld();
+    if(!ensure(World!=nullptr)) return;
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if(!ensure(PlayerController!=nullptr)) return;
+
+	FInputModeGameOnly InputModeData;
+
+	PlayerController->SetInputMode(InputModeData);
+	PlayerController->bShowMouseCursor = false;
 }
 
 void UMainMenu::HostServer()

@@ -46,7 +46,7 @@ void UPuzzlePlatformsGameInstance::Host()
 {
 	if(Menu != nullptr)
 	{
-		Menu->Teardown();
+		//Menu->Teardown();
 	}
 
 	UEngine* Engine = GetEngine();
