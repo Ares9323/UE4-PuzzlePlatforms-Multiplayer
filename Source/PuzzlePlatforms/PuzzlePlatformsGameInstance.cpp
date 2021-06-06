@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PuzzlePlatformsGameInstance.h"
-#include "EngineGlobals.h"
-#include "Engine.h"
-#include "UObject/ConstructorHelpers.h"
-#include "PlatformTrigger.h"
-#include "Blueprint/UserWidget.h"
-#include "Components/Widget.h"
-#include "MenuSystem/MainMenu.h"
+#include "PuzzlePlatforms/PuzzlePlatformsGameInstance.h"
+#include <EngineGlobals.h>
+#include <Engine.h>
+#include <UObject/ConstructorHelpers.h>
+#include "PuzzlePlatforms/PlatformTrigger.h"
+#include <Blueprint/UserWidget.h>
+#include <Components/Widget.h>
+#include "PuzzlePlatforms/MenuSystem/MainMenu.h"
 
 
 
