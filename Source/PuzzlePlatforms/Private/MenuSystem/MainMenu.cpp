@@ -62,6 +62,10 @@ bool UMainMenu::Initialize()
     if(!ensure(CancelButton!=nullptr)) return false;
     CancelButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
+    // Return to Main Menu
+    if(!ensure(JoinServerButton!=nullptr)) return false;
+    JoinServerButton->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
+
     return true;
 
 }
@@ -113,4 +117,10 @@ void UMainMenu::OpenMainMenu()
 void UMainMenu::JoinServer()
 {
     UE_LOG(LogTemp, Warning, TEXT("I'm joining a server!"));
+    if(MenuInterface != nullptr)
+    {
+        if(!ensure(IPAddressField!=nullptr)) return;
+        const FString& Address = IPAddressField->GetText().ToString();
+        MenuInterface->Join(Address);
+    }
 }

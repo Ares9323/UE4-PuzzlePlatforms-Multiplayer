@@ -23,7 +23,6 @@ public:
 
 	void stocazzo();
 
-
 protected:
 	virtual bool Initialize();
 	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
@@ -40,6 +39,9 @@ private:
 	class UButton* CancelButton;
 
 	UPROPERTY(meta = (BindWidget))
+	class UButton* JoinServerButton;
+
+	UPROPERTY(meta = (BindWidget))
 	class UWidgetSwitcher* MenuSwitcher;
 
 	UPROPERTY(meta = (BindWidget))
@@ -47,6 +49,9 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	class UWidget* MainMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UEditableTextBox* IPAddressField;
 
 	UFUNCTION(Category="Hosting")
 	void HostServer();
@@ -59,6 +64,7 @@ private:
 
 	UFUNCTION(Category="Joining")
 	void JoinServer();
+
 
 	IMenuInterface* MenuInterface;
 };
