@@ -3,6 +3,8 @@
 
 #include "MenuSystem/MainMenu.h"
 #include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
+#include "Components/EditableTextBox.h"
 
 bool UMainMenu::Initialize()
 {
@@ -23,9 +25,18 @@ bool UMainMenu::Initialize()
 
 }
 
+void UMainMenu::SetMenuInterface(IMenuInterface* CurrentMenuInterface)
+{
+    this->MenuInterface = CurrentMenuInterface;
+}
+
 void UMainMenu::HostServer()
 {
     UE_LOG(LogTemp, Warning, TEXT("I'm gonna host a server!"));
+    if(MenuInterface != nullptr)
+    {
+        MenuInterface->Host();
+    }
 }
 
 void UMainMenu::JoinServer()
