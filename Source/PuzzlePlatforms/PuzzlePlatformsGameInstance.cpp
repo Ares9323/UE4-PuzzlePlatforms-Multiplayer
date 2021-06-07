@@ -5,13 +5,16 @@
 #include "EngineGlobals.h"
 #include "Engine.h"
 #include "UObject/ConstructorHelpers.h"
-#include "PlatformTrigger.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Widget.h"
+#include "OnlineSessionSettings.h"
+#include "Interfaces/OnlineSessionInterface.h"
+
+#include "PlatformTrigger.h"
 #include "MenuSystem/MainMenu.h"
 #include "MenuSystem/MenuWidget.h"
 
-
+const static FName SESSION_NAME = TEXT("My Session Game");
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer)
 {
@@ -34,6 +37,25 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitiali
 
 void UPuzzlePlatformsGameInstance::Init()
 {
+	IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
+	if(Subsystem != nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found Subsystem %s"), *Subsystem->GetSubsystemName().ToString());
+		// Create a shared pointer to the session interface
+		SessionInterface = Subsystem->GetSessionInterface();
+		if(SessionInterface.IsValid())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Found Session Interface"));
+
+
+			SessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this,&UPuzzlePlatformsGameInstance::OnCreateSessionComplete);
+			SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this,&UPuzzlePlatformsGameInstance::OnDestroySessionComplete);
+		}
+
+
+	} else {
+		UE_LOG(LogTemp, Error, TEXT("Found no Subsystem"));
+	}
 	UE_LOG(LogTemp, Warning, TEXT("GameInstance Init()"));
 	UE_LOG(LogTemp, Warning, TEXT("Found Class %s"), *MenuClass->GetName());
 }
@@ -60,21 +82,20 @@ void UPuzzlePlatformsGameInstance::LoadInGameMenu()
 
 void UPuzzlePlatformsGameInstance::Host()
 {
-	if(Menu != nullptr)
+	if(SessionInterface.IsValid())
 	{
-		//Menu->Teardown(); // No Longer Used
+		auto ExistingSession = SessionInterface->GetNamedSession(SESSION_NAME);
+		if(ExistingSession != nullptr)
+		{
+			SessionInterface->DestroySession(SESSION_NAME);
+			UE_LOG(LogTemp, Warning, TEXT("Destroyed session!"));
+			CreateSession();
+			UE_LOG(LogTemp, Warning, TEXT("Created session!"));
+		} else {
+			CreateSession();
+			UE_LOG(LogTemp, Warning, TEXT("Created session!"));
+		}
 	}
-
-	UEngine* Engine = GetEngine();
-	if(!ensure(Engine!=nullptr)) return;
-
-	Engine->AddOnScreenDebugMessage(0,2.f, FColor::Green, TEXT("HOSTING!"));
-	UE_LOG(LogTemp, Warning, TEXT("HOSTING"));
-
-	UWorld* World = GetWorld();
-	if(!ensure(World!=nullptr)) return;
-
-	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 }
 
 void UPuzzlePlatformsGameInstance::Join(const FString& Address)
@@ -97,4 +118,46 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu()
 	if(!ensure(PlayerController!=nullptr)) return;
 
 	PlayerController->ClientTravel("/Game/MenuSystem/MainMenu",ETravelType::TRAVEL_Absolute);
+}
+
+void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, bool Success)
+{
+	if(!Success)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not create session!"));
+		return;
+	}
+	if(Menu != nullptr)
+	{
+		Menu->Teardown();
+	}
+
+	UEngine* Engine = GetEngine();
+	if(!ensure(Engine!=nullptr)) return;
+
+	Engine->AddOnScreenDebugMessage(0,2.f, FColor::Green, TEXT("HOSTING!"));
+	UE_LOG(LogTemp, Warning, TEXT("HOSTING"));
+
+	UWorld* World = GetWorld();
+	if(!ensure(World!=nullptr)) return;
+
+	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
+}
+
+void UPuzzlePlatformsGameInstance::OnDestroySessionComplete(FName SessionName, bool Success)
+{
+	if(Success)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Destroyed session!"));
+		return;
+	}
+}
+
+void UPuzzlePlatformsGameInstance::CreateSession()
+{
+	if(SessionInterface.IsValid())
+	{
+		FOnlineSessionSettings SessionSettings;
+		SessionInterface->CreateSession(0,SESSION_NAME,SessionSettings);
+	}
 }

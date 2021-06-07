@@ -20,7 +20,7 @@ void UMenuWidget::Setup()
 	PlayerController->bShowMouseCursor = true;
 }
 
-void UMenuWidget::Teardown() // No Longer Used
+void UMenuWidget::Teardown()
 {
     this->RemoveFromViewport();
 
