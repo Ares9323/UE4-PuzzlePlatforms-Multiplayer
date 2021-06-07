@@ -34,8 +34,13 @@ public:
 	void Join(const FString& Address) override;
 
 	UFUNCTION(Exec, Category="Console Commands")
+	void JoinList(const FString& Address) override;
+
+	UFUNCTION(Exec, Category="Console Commands")
 	virtual void LoadMainMenu() override;
 
+	UFUNCTION(Exec, Category="Console Commands")
+	virtual void RefreshServerList() override;
 
 private:
 	TSubclassOf<class UUserWidget> MenuClass;
