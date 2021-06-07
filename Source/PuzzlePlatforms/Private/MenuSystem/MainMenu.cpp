@@ -43,6 +43,7 @@ void UMainMenu::SetServerList(TArray<FString> ServerNames)
 void UMainMenu::SelectIndex(uint32 Index)
 {
     SelectedIndex = Index;
+    UpdateChildren();
 }
 
 uint32 UMainMenu::GetSelectedIndex()
@@ -186,4 +187,16 @@ void UMainMenu::QuitPressed()
 
     PlayerController->ConsoleCommand("quit");
 
+}
+
+void UMainMenu::UpdateChildren()
+{
+    for(int32 i=0; i<ServerList->GetChildrenCount(); ++i)
+    {
+        auto Row = Cast<UServerRow>(ServerList->GetChildAt(i));
+        if(Row != nullptr)
+        {
+            Row->bSelected = (SelectedIndex.IsSet() && SelectedIndex.GetValue() == i);
+        }
+    }
 }

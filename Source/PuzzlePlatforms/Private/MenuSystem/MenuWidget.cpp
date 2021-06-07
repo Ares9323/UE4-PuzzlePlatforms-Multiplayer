@@ -2,6 +2,7 @@
 
 
 #include "MenuSystem/MenuWidget.h"
+#include "Misc/Attribute.h"
 
 void UMenuWidget::Setup()
 {
