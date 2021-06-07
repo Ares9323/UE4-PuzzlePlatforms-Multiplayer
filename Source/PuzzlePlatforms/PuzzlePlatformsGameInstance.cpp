@@ -185,15 +185,20 @@ void UPuzzlePlatformsGameInstance::OnFindSessionsComplete(bool Success)
 	UE_LOG(LogTemp, Warning, TEXT("Completed Find Session"));
 	if(Success && SessionSearch.IsValid() && Menu != nullptr)
 	{
-		TArray<FString> ServerNames;
-		ServerNames.Add("Test Server 1");
-		ServerNames.Add("Test Server 2");
-		ServerNames.Add("Test Server 3");
-		ServerNames.Add("Test Server 4");
+		TArray<FServerData> ServerNames;
+		//ServerNames.Add("Test Server 1"); //Test Servers
+		//ServerNames.Add("Test Server 2"); //Test Servers
+		//ServerNames.Add("Test Server 3"); //Test Servers
+		//ServerNames.Add("Test Server 4"); //Test Servers
 		for (FOnlineSessionSearchResult& SearchResult : SessionSearch->SearchResults)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found Session Named: %s"), *SearchResult.GetSessionIdStr());
-			ServerNames.Add(SearchResult.GetSessionIdStr());
+			FServerData Data;
+			Data.Name = SearchResult.GetSessionIdStr();
+			Data.CurrentPlayers = SearchResult.Session.NumOpenPublicConnections;
+			Data.MaxPlayers = SearchResult.Session.SessionSettings.NumPublicConnections;
+			Data.HostUsername = SearchResult.Session.OwningUserName;
+			ServerNames.Add(Data);
 		}
 		Menu->SetServerList(ServerNames);
 	}
@@ -226,7 +231,12 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 	if(SessionInterface.IsValid())
 	{
 		FOnlineSessionSettings SessionSettings;
-		SessionSettings.bIsLANMatch = true; //Make the match local
+		if(IOnlineSubsystem::Get()->GetSubsystemName() == "NULL")
+		{
+			SessionSettings.bIsLANMatch = true; //Make the match local
+		} else {
+			SessionSettings.bIsLANMatch = false; //Make the match online (Steam)
+		}
 		SessionSettings.NumPublicConnections = 2; //Maximum number of players
 		SessionSettings.bShouldAdvertise = true; //Make the match public
 

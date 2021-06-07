@@ -19,7 +19,7 @@ UMainMenu::UMainMenu(const FObjectInitializer & ObjectInitializer)
 	//UE_LOG(LogTemp, Warning, TEXT("Found Class %s"), *ServerRowClass->GetName());
 }
 
-void UMainMenu::SetServerList(TArray<FString> ServerNames)
+void UMainMenu::SetServerList(TArray<FServerData> ServerNames)
 {
     UWorld* World = this->GetWorld();
     if(!ensure(World!=nullptr)) return;
@@ -27,12 +27,15 @@ void UMainMenu::SetServerList(TArray<FString> ServerNames)
     ServerList->ClearChildren();
 
     uint32 i=0;
-    for (const FString& ServerName : ServerNames)
+    for (const FServerData& ServerData : ServerNames)
     {
         UServerRow* Row = CreateWidget<UServerRow>(this,ServerRowClass);
         if(!ensure(Row!=nullptr)) return;
 
-        Row->ServerName->SetText(FText::FromString(ServerName));
+        Row->ServerName->SetText(FText::FromString(ServerData.Name));
+        Row->HostUser->SetText(FText::FromString(ServerData.HostUsername));
+        FText FractionText = FText::FromString(FString::Printf(TEXT("%d/%d"),ServerData.CurrentPlayers,ServerData.MaxPlayers));
+        Row->ConnectionFraction->SetText(FractionText);
         Row->Setup(this,i);
         ++i;
 
