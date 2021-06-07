@@ -126,9 +126,13 @@ void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 void UMainMenu::HostServer()
 {
     UE_LOG(LogTemp, Warning, TEXT("I'm gonna host a server!"));
+
+
+
     if(MenuInterface != nullptr)
     {
-        FString ServerName = "Stocazzo";
+        if(!ensure(ServerNameField!=nullptr)) return;
+        const FString& ServerName = ServerNameField->GetText().ToString();
         MenuInterface->Host(ServerName);
     }
 }
