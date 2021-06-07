@@ -26,7 +26,7 @@ public:
 	// Empty Implementation, must be overridden
 	virtual void Host() = 0;
 	virtual void Join(const FString& Address) = 0;
-	virtual void JoinList(const FString& Address) = 0;
+	virtual void JoinList(uint32 Index) = 0;
 	virtual void LoadMainMenu() = 0;
 	virtual void RefreshServerList() = 0;
 };
