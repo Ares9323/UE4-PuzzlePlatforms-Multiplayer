@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Components/Button.h"
 #include "MenuSystem/ServerRow.h"
 #include "MenuSystem/MainMenu.h"
+#include "Components/Button.h"
 
 
 void UServerRow::Setup(class UMainMenu* InParent, uint32 InIndex)
