@@ -42,6 +42,29 @@ protected:
 private:
 	TSubclassOf<class UUserWidget> ServerRowClass;
 
+
+// Generic widgets
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* QuitButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidgetSwitcher* MenuSwitcher;
+
+// Menus
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidget* MainMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidget* HostMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidget* JoinMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidget* JoinMenuList;
+
 // Main Menu Buttons
 
 	UPROPERTY(meta = (BindWidget))
@@ -86,27 +109,6 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UPanelWidget* ServerList;
 
-// General widgets Buttons
-
-	UPROPERTY(meta = (BindWidget))
-	class UButton* QuitButton;
-
-	UPROPERTY(meta = (BindWidget))
-	class UWidgetSwitcher* MenuSwitcher;
-
-// Menus
-
-	UPROPERTY(meta = (BindWidget))
-	class UWidget* MainMenu;
-
-	UPROPERTY(meta = (BindWidget))
-	class UWidget* HostMenu;
-
-	UPROPERTY(meta = (BindWidget))
-	class UWidget* JoinMenu;
-
-	UPROPERTY(meta = (BindWidget))
-	class UWidget* JoinMenuList;
 
 // Functions
 
