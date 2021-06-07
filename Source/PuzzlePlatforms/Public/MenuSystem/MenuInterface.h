@@ -24,7 +24,7 @@ class PUZZLEPLATFORMS_API IMenuInterface
 public:
 
 	// Empty Implementation, must be overridden
-	virtual void Host() = 0;
+	virtual void Host(FString ServerName) = 0;
 	virtual void Join(const FString& Address) = 0;
 	virtual void JoinList(uint32 Index) = 0;
 	virtual void LoadMainMenu() = 0;

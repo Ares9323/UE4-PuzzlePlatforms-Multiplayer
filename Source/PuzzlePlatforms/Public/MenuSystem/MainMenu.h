@@ -42,32 +42,65 @@ protected:
 private:
 	TSubclassOf<class UUserWidget> ServerRowClass;
 
-	UPROPERTY(meta = (BindWidget))
-	class UButton* HostButton;
+// Main Menu Buttons
 
 	UPROPERTY(meta = (BindWidget))
-	class UButton* JoinButton;
+	class UButton* HostButton;
 
 	UPROPERTY(meta = (BindWidget))
 	class UButton* ServerListButton;
 
 	UPROPERTY(meta = (BindWidget))
+	class UButton* JoinButton;
+
+// Host Menu Buttons
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* CancelHostingButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* StartHostingButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UEditableTextBox* ServerNameField;
+
+// Join Menu Buttons
+
+	UPROPERTY(meta = (BindWidget))
 	class UButton* CancelButton;
-
-	UPROPERTY(meta = (BindWidget))
-	class UButton* CancelJoinSessionButton;
-
-	UPROPERTY(meta = (BindWidget))
-	class UButton* QuitButton;
 
 	UPROPERTY(meta = (BindWidget))
 	class UButton* JoinServerButton;
 
 	UPROPERTY(meta = (BindWidget))
+	class UEditableTextBox* IPAddressField;
+
+// Join Menu List Buttons
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* CancelJoinSessionButton;
+
+	UPROPERTY(meta = (BindWidget))
 	class UButton* JoinSessionButton;
 
 	UPROPERTY(meta = (BindWidget))
+	class UPanelWidget* ServerList;
+
+// General widgets Buttons
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* QuitButton;
+
+	UPROPERTY(meta = (BindWidget))
 	class UWidgetSwitcher* MenuSwitcher;
+
+// Menus
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidget* MainMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidget* HostMenu;
 
 	UPROPERTY(meta = (BindWidget))
 	class UWidget* JoinMenu;
@@ -75,17 +108,13 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UWidget* JoinMenuList;
 
-	UPROPERTY(meta = (BindWidget))
-	class UPanelWidget* ServerList;
-
-	UPROPERTY(meta = (BindWidget))
-	class UWidget* MainMenu;
-
-	UPROPERTY(meta = (BindWidget))
-	class UEditableTextBox* IPAddressField;
+// Functions
 
 	UFUNCTION(Category="Hosting")
 	void HostServer();
+
+	UFUNCTION(Category="Joining")
+	void OpenHostMenu();
 
 	UFUNCTION(Category="Joining")
 	void OpenJoinMenu();

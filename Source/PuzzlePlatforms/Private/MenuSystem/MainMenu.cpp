@@ -66,9 +66,9 @@ bool UMainMenu::Initialize()
     bool Success = Super::Initialize();
     if(!Success) return false;
 
-    // Host OnClick event
+    // Open Host Menu
     if(!ensure(HostButton!=nullptr)) return false;
-    HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+    HostButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
 
     // Open Join Menu
     if(!ensure(JoinButton!=nullptr)) return false;
@@ -83,10 +83,16 @@ bool UMainMenu::Initialize()
     CancelButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
     if(!ensure(CancelJoinSessionButton!=nullptr)) return false;
     CancelJoinSessionButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
+    if(!ensure(CancelHostingButton!=nullptr)) return false;
+    CancelHostingButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
     // Quit Game
     if(!ensure(QuitButton!=nullptr)) return false;
     QuitButton->OnClicked.AddDynamic(this, &UMainMenu::QuitPressed);
+
+    // Start Hosting a Server
+    if(!ensure(StartHostingButton!=nullptr)) return false;
+    StartHostingButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
 
     // Join Server
     if(!ensure(JoinServerButton!=nullptr)) return false;
@@ -122,8 +128,18 @@ void UMainMenu::HostServer()
     UE_LOG(LogTemp, Warning, TEXT("I'm gonna host a server!"));
     if(MenuInterface != nullptr)
     {
-        MenuInterface->Host();
+        FString ServerName = "Stocazzo";
+        MenuInterface->Host(ServerName);
     }
+}
+
+void UMainMenu::OpenHostMenu()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Opening host menu!"));
+    if(!ensure(MenuSwitcher!=nullptr)) return;
+    if(!ensure(HostMenu!=nullptr)) return;
+
+    MenuSwitcher->SetActiveWidget(HostMenu);
 }
 
 void UMainMenu::OpenJoinMenu()

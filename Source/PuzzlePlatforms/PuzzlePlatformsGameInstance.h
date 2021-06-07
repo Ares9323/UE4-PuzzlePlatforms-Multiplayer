@@ -29,7 +29,7 @@ public:
 	void LoadInGameMenu();
 
 	UFUNCTION(Exec, Category="Console Commands")
-	void Host() override;
+	void Host(FString ServerName) override;
 
 	UFUNCTION(Exec, Category="Console Commands")
 	void Join(const FString& Address) override;
@@ -57,7 +57,7 @@ private:
 	void OnFindSessionsComplete(bool Success);
 	void OnJoinSessionsComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 
-
+	FString DesiredServerName;
 	void CreateSession();
 
 };
