@@ -134,7 +134,7 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu()
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
 	if(!ensure(PlayerController!=nullptr)) return;
 
-	PlayerController->ClientTravel("/Game/MenuSystem/MainMenu",ETravelType::TRAVEL_Absolute);
+	PlayerController->ClientTravel("/Game/MenuSystem/Maps/MainMenu",ETravelType::TRAVEL_Absolute);
 }
 
 void UPuzzlePlatformsGameInstance::RefreshServerList()
@@ -170,7 +170,7 @@ void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, bo
 	UWorld* World = GetWorld();
 	if(!ensure(World!=nullptr)) return;
 
-	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
+	World->ServerTravel("/Game/MenuSystem/Maps/Lobby?listen");
 }
 
 void UPuzzlePlatformsGameInstance::OnDestroySessionComplete(FName SessionName, bool Success)
