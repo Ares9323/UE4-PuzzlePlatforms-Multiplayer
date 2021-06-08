@@ -251,6 +251,7 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 			SessionSettings.bIsLANMatch = true; //Make the match local
 		} else {
 			SessionSettings.bIsLANMatch = false; //Make the match online (Steam)
+			SessionSettings.bUsesPresence = true; //Display user presence (Steam)
 		}
 		SessionSettings.NumPublicConnections = 5; //Maximum number of players
 		SessionSettings.bShouldAdvertise = true; //Make the match public
