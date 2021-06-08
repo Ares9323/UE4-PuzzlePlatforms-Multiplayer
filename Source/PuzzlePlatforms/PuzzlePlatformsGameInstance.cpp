@@ -13,7 +13,7 @@
 #include "MenuSystem/MainMenu.h"
 #include "MenuSystem/MenuWidget.h"
 
-const static FName SESSION_NAME = TEXT("My Session Game");
+const static FName SESSION_NAME = TEXT("Game");
 const static FName SERVER_NAME_SETTINGS_KEY = TEXT("ServerName");
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer)
@@ -244,7 +244,7 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 		} else {
 			SessionSettings.bIsLANMatch = false; //Make the match online (Steam)
 		}
-		SessionSettings.NumPublicConnections = 2; //Maximum number of players
+		SessionSettings.NumPublicConnections = 5; //Maximum number of players
 		SessionSettings.bShouldAdvertise = true; //Make the match public
 		SessionSettings.Set(SERVER_NAME_SETTINGS_KEY,DesiredServerName, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 

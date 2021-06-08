@@ -20,5 +20,10 @@ public:
 	void Logout(AController* Exiting) override;
 
 private:
+
+
+	void StartGame();
+	FTimerHandle GameStartTimer;
+
 	uint32 NumberOfPlayers = 0;
 };
