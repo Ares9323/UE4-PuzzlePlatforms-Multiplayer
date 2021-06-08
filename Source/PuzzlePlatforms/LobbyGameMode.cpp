@@ -12,7 +12,11 @@ void ALobbyGameMode::PostLogin(APlayerController* NewPlayer)
 
     if(PlayersDetected >= 3)
     {
-        UE_LOG(LogTemp, Warning, TEXT("3 players reached"));
+        UE_LOG(LogTemp, Warning, TEXT("3 players reached, moving to main map"));
+        UWorld* World = GetWorld();
+        if(!ensure(World!=nullptr)) return;
+        bUseSeamlessTravel = true;
+        World->ServerTravel("/Game/PuzzlePlatforms/Maps/Game?listen");
     }
 }
 
