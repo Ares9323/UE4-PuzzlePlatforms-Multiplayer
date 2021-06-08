@@ -96,6 +96,9 @@ private:
 	class UButton* JoinServerButton;
 
 	UPROPERTY(meta = (BindWidget))
+	class UButton* RefreshServerListButton;
+
+	UPROPERTY(meta = (BindWidget))
 	class UEditableTextBox* IPAddressField;
 
 // Join Menu List Buttons
@@ -132,6 +135,9 @@ private:
 
 	UFUNCTION(Category="Joining")
 	void JoinServerFromList();
+
+	UFUNCTION(Category="Joining")
+	void RefreshServerList();
 
 	UFUNCTION(Category="Joining")
 	void QuitPressed();

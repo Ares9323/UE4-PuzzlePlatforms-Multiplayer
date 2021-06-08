@@ -102,6 +102,10 @@ bool UMainMenu::Initialize()
     if(!ensure(JoinSessionButton!=nullptr)) return false;
     JoinSessionButton->OnClicked.AddDynamic(this, &UMainMenu::JoinServerFromList);
 
+    // Refresh Server list
+    if(!ensure(RefreshServerListButton!=nullptr)) return false;
+    RefreshServerListButton->OnClicked.AddDynamic(this, &UMainMenu::RefreshServerList);
+
     return true;
 
 }
@@ -197,6 +201,13 @@ void UMainMenu::JoinServerFromList()
         MenuInterface->JoinList(SelectedIndex.GetValue());
     } else {
         UE_LOG(LogTemp, Warning, TEXT("Selected index not set"));
+    }
+}
+
+void UMainMenu::RefreshServerList()
+{
+    {
+        MenuInterface->RefreshServerList();
     }
 }
 
