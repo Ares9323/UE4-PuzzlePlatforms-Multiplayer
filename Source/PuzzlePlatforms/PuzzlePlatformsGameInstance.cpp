@@ -129,6 +129,14 @@ void UPuzzlePlatformsGameInstance::JoinList(uint32 Index)
 
 }
 
+void UPuzzlePlatformsGameInstance::StartSession()
+{
+	if(SessionInterface.IsValid())
+	{
+		SessionInterface->StartSession(SESSION_NAME);
+	}
+}
+
 void UPuzzlePlatformsGameInstance::LoadMainMenu()
 {
 	APlayerController* PlayerController = GetFirstLocalPlayerController();

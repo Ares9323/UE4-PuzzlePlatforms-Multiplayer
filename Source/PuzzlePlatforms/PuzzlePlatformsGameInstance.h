@@ -37,6 +37,8 @@ public:
 	UFUNCTION(Exec, Category="Console Commands")
 	void JoinList(uint32 Index) override;
 
+	void StartSession();
+
 	UFUNCTION(Exec, Category="Console Commands")
 	virtual void LoadMainMenu() override;
 
